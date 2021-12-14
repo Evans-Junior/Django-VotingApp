@@ -1,0 +1,194 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Django Voting App</title>
+  </head>
+  <body class='bg-light'>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Django Voting App</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+              <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class='nav-link' href="#instructions">
+                  Instructions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class='nav-link' href="#results">
+                  Results
+                </a>
+              </li>
+              
+            </ul>
+            
+          </div>
+        </div>
+      </nav>
+     
+      <div class='container-fluid' style='margin-bottom: 20rem; margin-top: 5rem;'>
+        <!-- {{globalcnt}}
+        {%for key, value in globalcnt.items %}
+        {{Key}}-{{value}}
+        <br>
+        {% endfor %} -->
+        <div class='row'>
+              <div class="col-md-6" style='margin: 1rem auto 0 auto;'>
+                <div class="row">
+                  <img class='img-fluid' src='{% static 'th.jfif' %}' style='margin: 0 auto;' />
+                </div>
+                {{arr}}
+                  <div class='card'>
+                      <div class="card-body">
+                        <form method="GET" action='{% url 'getquery' %}' style="justify-content: center;"> 
+                          <input list='languages' class='form-control' style="margin-bottom: 1rem;" name="languages"/>
+                          <datalist id='languages'>
+                            {% for eachlanguage in arr %}
+                            <option value='{{eachlanguage}}'>
+                            {% endfor %}
+                            <option value='Python'>
+                            <option value='PHP'>
+                            <option value='Perl'>
+                            <option value='Programming'>
+                            <option value='C'>
+                            <option value='C++'>
+                            <option value='JavaScript'>
+                            <option value='Java'>
+                            <option value='Django-Python'>
+                            <option value='MachineLearning-Python'>
+                          </datalist>  
+                          
+                            
+                                  <div class='row' style='margin: 1rem auto 0 auto; '>
+                                    <div class="col-6">
+                                      <input type='submit' class='btn btn-success' style="display: block; "/>
+                                    </div>
+                                    <div class="col-6">
+                                    <input type='reset' class='btn btn-danger' style="display: block;"/>
+                                  </div>
+                                  </div>
+                                  
+                               
+                            <!-- <div style='margin: 1rem auto 0 auto;'>
+                                <input type='submit' class='btn btn-success' style="display: block; margin: 0 auto;"/>
+                                <input type='reset' class='btn btn-danger' style="display: block; margin: 0 auto;"/>
+                            </div> -->
+                            
+                        </form>
+                        <div class='row' >
+                          <div class='col-md-12' style="margin:2rem auto 0 auto">
+                            <p class='btn btn-warning' id='results' name='results' style="text-align: center; display: block; font-size: 2rem;">
+                              Find results
+                            </p>
+                            <hr>
+                          <p class='lead' id='results' name='' style="text-align: center;">
+                            Results Table
+                            <a href="{% url 'sortdata' %}" class='btn btn-primary'>Sort Data in Descending order</a>
+                          </p>
+                          <div>
+                          </div>
+                          <div class='row'>
+                            <div class="col-md-12">
+                            <div class="table-responsive">
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Language</th>
+                                    <th scope="col">Number of Votes</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for Key, value in globalcnt.items %}
+                                  <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td>{{Key}}</td>
+                                    <td><div class="progress">
+                                      <div class="progress-bar" role="progressbar" style="width:{{value}}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{value}}</div>
+                                    </div>
+                                  </td>
+                                  </tr>
+                                  
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          </div>
+                      <div class='row'>
+                          <div class='col-md-6' style="margin:2rem auto 0 auto">
+                          <p class='badge rounded-pill bg-success' id='about' name='about' style="text-align: center; display: block; font-size: 2rem;">
+                            About
+                          </p>
+                          <hr>
+                          <p class='lead' style='text-align: center;'>
+                           Pick Your Favourite Language
+                          </p>
+                          </div>
+                        </p>
+                      </div>
+                      <div class='row'>
+                        <div class='col-md-6' style="margin:2rem auto 0 auto">
+                          <p class='badge rounded-pill bg-danger' id='about' name='about' style="text-align: center; display: block; font-size: 2rem;">
+                            Instructions
+                          </p>
+                          <hr>
+                        <p class='lead' id='Instructions' name='' style="text-align: center;">
+                          Select Your Language And See Results
+                        </p>
+                        <div>
+                          
+                        <!-- <ul class="list-group">
+                          <li class="list-group-item">+ Addition</li>
+                          <li class="list-group-item">- Minus</li>
+                          <li class="list-group-item">* Multiplication</li>
+                          <li class="list-group-item">/ Division</li>
+                          <li class="list-group-item">// Floor Division</li>
+                          <li class="list-group-item">** Exponential</li>
+                          <li class="list-group-item">% Modulos</li>
+                          <li class="list-group-item">() Bracket</li>
+                        </ul> -->
+                        
+                      </p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class='container-fluid'>
+          <div class='row' >
+              <footer class='fixed-bottom navbar-light' style='background: black; text-align: center;'>
+                <p>
+                    Thanks for using our App
+                </p>
+              </footer>
+          </div>
+      </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
